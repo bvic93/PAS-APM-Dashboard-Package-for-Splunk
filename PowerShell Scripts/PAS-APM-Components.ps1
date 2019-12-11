@@ -60,6 +60,7 @@ $PORT = 51444
 # chage SYSLOGSERVER to the IP Address of your SIEM
 $SYSLOGSERVER="1.1.1.1"
 
+# Service array for the different component servers, add services as required
 $svcArray = @("Cyberark Password Manager", "Cyberark Central Policy Manager Scanner", "CyberArk Vault-Conjur Synchronizer", "Cyber-Ark Privileged Session Manager", "W3SVC", "TermService")
 
 foreach($svc in $svcArray) {

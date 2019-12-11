@@ -48,6 +48,7 @@ $PORT = 51444
 # chage SYSLOGSERVER to the IP Address of your SIEM
 $SYSLOGSERVER="1.1.1.1"
 
+# Service array for the vault servers, add services as required
 $svcArray = @("CyberArk Vault Disaster Recovery", "PrivateArk Server", "PrivateArk Database", "CyberArk Logic Container", "PrivateArk Remote Control Agent", "Cyber-Ark Event Notification Engine")
 
 # Loop through the array of services to get info on them
