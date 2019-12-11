@@ -78,6 +78,8 @@ Beta v1.1 - Under Construction
 `</xsl:for-each>
 	          <xsl:for-each select="syslog/monitor_record">CEF:0|<xsl:value-of select="Vendor"/>|<xsl:value-of select="Product"/>|<xsl:value-of select="Version"/>|<xsl:value-of select="AverageExecutionTime"/>|<xsl:value-of select="MaxExecutionTime"/>|<xsl:value-of select="AverageQueueTime"/>|<xsl:value-of select="MaxQueueTime"/>|<xsl:value-of select="NumberOfParallelTasks"/>|<xsl:value-of select="MaxParallelTasks"/>|<xsl:value-of select="TransactionCount"/>|<xsl:value-of select="CPUUsage"/>|<xsl:value-of select="MemoryUsage"/>|<xsl:value-of select="DriveFreeSpaceInGB"/>|<xsl:value-of select="DriveTotalSpaceInGB"/>|<xsl:value-of select="SyslogQueueSize"/>
       </xsl:for-each>`
+	
+	Or, copy and paste the contents of PrivateArk Server Syslog\monitor_record.xsl into the translator file. Then replace the PrivateArk\Server\Syslog\RFC5424Changes.xsl with the one from this repo in PrivateArk Server Syslog. This will format the Syslog messages properly for the VaultMonitor events
 
 ## How To Use These Dashboards
 These dashboards are designed to provide meaningful application performance monitoring information for the CyberArk PAS solution. Dashboards are broken up into three sections, (1) Service Status, (2) Hardware Performance Monitors, and (3) Application Performance Metrics. Each of these dashboards and the data they contain are unique to the component of the CyberArk PAS solution they're designed to monitor.
