@@ -1,5 +1,5 @@
 Function GetServiceInfo {
-	param($MonitorType, $svcName, $HostName, $ScriptVersion, $DateTime, $LogServer, $logPort)
+	param($MonitorType, $svcName, $HostName, $Version, $DateTime, $LogServer, $logPort)
 	
 	$doRegSrch = $false
 	$isPSM = $false
@@ -22,9 +22,9 @@ Function GetServiceInfo {
 		if ($doRegSrch) {
 			$SoftwareName = Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Where-Object DisplayName -like $regSrch | Select-Object DisplayName | Select -first 1 | Format-Table -HideTableHeaders | Out-String
 			$SoftwareVersion = Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Where-Object DisplayName -like $regSrch | Select-Object DisplayVersion | Select -first 1 | Format-Table -HideTableHeaders | Out-String
-			$syslogoutput = "<5>1 $DateTime $HostName CEF:0|CyberArk|$MonitorType|$ScriptVersion|$HostName|$ServiceName|$ServiceStatus|$ServiceStatusNumeric|$SoftwareName|$SoftwareVersion"
+			$syslogoutput = "<5>1 $DateTime $HostName CEF:0|CyberArk|$MonitorType|$Version|$HostName|$ServiceName|$ServiceStatus|$ServiceStatusNumeric|$SoftwareName|$SoftwareVersion"
 		} else {
-			$syslogoutput = "<5>1 $DateTime $HostName CEF:0|CyberArk|$MonitorType|$ScriptVersion|$HostName|$ServiceName|$ServiceStatus|$ServiceStatusNumeric"
+			$syslogoutput = "<5>1 $DateTime $HostName CEF:0|CyberArk|$MonitorType|$Version|$HostName|$ServiceName|$ServiceStatus|$ServiceStatusNumeric"
 		}
 		SendSyslog -syslogMsg $syslogoutput -syslogSrv $LogServer -syslogPort $logPort
 		if ($isPSM) {
@@ -50,7 +50,7 @@ Function SendSyslog {
 }
 
 #Service Status Check for Component Server
-$Version = "1.0.0001"
+$ver = "1.0.0001"
 $compName = "$env:computername"
 $Date = Get-Date
 $Date_Time = $DATE.ToString("yyyy-MM-ddTHH:mm:ssZ")
@@ -64,7 +64,7 @@ $SYSLOGSERVER="1.1.1.1"
 $svcArray = @("Cyberark Password Manager", "Cyberark Central Policy Manager Scanner", "CyberArk Vault-Conjur Synchronizer", "Cyber-Ark Privileged Session Manager", "W3SVC", "TermService")
 
 foreach($svc in $svcArray) {
-	GetServiceInfo -MonitorType "ApplicationMonitor" -SvcName $svc -HostName $compName -ScriptVersion $Version -DateTime $Date_Time -LogServer $SYSLOGSERVER -logPort $PORT
+	GetServiceInfo -MonitorType "ApplicationMonitor" -SvcName $svc -HostName $compName -Version $ver -DateTime $Date_Time -LogServer $SYSLOGSERVER -logPort $PORT
 }
 
 ##Hardware Performance Checks
@@ -83,7 +83,7 @@ $TotalSpaceGBDecimal = $TotalSpace / 1073741824
 $FreeSpaceGBDecimal = $FreeSpace / 1073741824
 $TotalSpaceGB = [math]::Round($TotalSpaceGBDecimal,1)
 $FreeSpaceGB = [math]::Round($FreeSpaceGBDecimal,1)
-$syslogoutput = "<5>1 $Date_Time $compName CEF:0|CyberArk|$MonitorType|$Version|$compName|$CPU|$Memory|$TotalSpaceGB|$FreeSpaceGB"
+$syslogoutput = "<5>1 $Date_Time $compName CEF:0|CyberArk|$MonitorType|$ver|$compName|$CPU|$Memory|$TotalSpaceGB|$FreeSpaceGB"
 SendSyslog -syslogMsg $syslogoutput -syslogSrv $LogServer -syslogPort $logPort
 
 #OS System Information
@@ -92,5 +92,5 @@ $OSName = (Get-WmiObject Win32_OperatingSystem).Caption | Out-String
 $OSVersion = (Get-WmiObject Win32_OperatingSystem).Version | Out-String
 $OSServPack = (Get-WmiObject Win32_OperatingSystem).ServicePackMajorVersion | Out-String
 $OSArchitecture = (Get-WmiObject Win32_OperatingSystem).OSArchitecture | Out-String
-$syslogoutput = "<5>1 $Date_Time $compName CEF:0|CyberArk|$MonitorType|$Version|$compName|$OSName|$OSVersion|$OSServPack|$OSArchitecture"
+$syslogoutput = "<5>1 $Date_Time $compName CEF:0|CyberArk|$MonitorType|$ver|$compName|$OSName|$OSVersion|$OSServPack|$OSArchitecture"
 SendSyslog -syslogMsg $syslogoutput -syslogSrv $LogServer -syslogPort $logPort

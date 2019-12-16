@@ -38,7 +38,7 @@ Function Send_Syslog {
 }
 
 #Service Status Check for Component Server
-$Version = "1.0.0001"
+$ver = "1.0.0001"
 $compName = "$env:computername"
 $Date = Get-Date
 $Date_Time = $DATE.ToString("yyyy-MM-ddTHH:mm:ssZ")

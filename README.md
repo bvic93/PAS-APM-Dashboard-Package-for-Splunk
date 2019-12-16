@@ -59,7 +59,7 @@ Beta v1.1 - Under Construction
 6. Click on "Dashboards" in Splunk
 7. Click on "Create New Dashboard"
 8. Enter the following title for each Dashboard:
-9. CyberArk Performance Monitoring Dashboard: `All-In-One`
+9. CyberArk Performance Monitoring Dashboard: `All-In-One` or the new CyberArk Performance Monitoring Dashboard: `All-In-One` with links to the individual dashboards for the PAS Servers
 10. CyberArk Performance Monitoring Dashboard: `VAULT`
 11. CyberArk Performance Monitoring Dashboard: `PVWA`
 12. CyberArk Performance Monitoring Dashboard: `CPM`

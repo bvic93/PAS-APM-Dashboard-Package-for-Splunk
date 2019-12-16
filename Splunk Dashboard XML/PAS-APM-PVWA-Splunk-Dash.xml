@@ -8,11 +8,11 @@
   </row>
   <row>
     <panel>
-      <title>World Wide Web Publishing Service Status</title>
+      <title>World Wide Web Publishing</title>
       <single>
-        <title>Host: Components</title>
+        <title>Host: PVWA</title>
         <search>
-          <query>host="10.0.1.12" Info2="World Wide Web Publishing Service" Info3=* 
+          <query>host="192.168.232.12" Info2="W3SVC" Info3=* 
 |  stats first(Info4)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -32,7 +32,7 @@
     <panel>
       <single>
         <search>
-          <query>host="10.0.1.12" Info2="World Wide Web Publishing Service" |  stats first(Info3)</query>
+          <query>host="192.168.232.12" Info2="W3SVC" |  stats first(Info3)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -53,7 +53,7 @@
       <title>CPU Usage % (Last 24 Hours)</title>
       <chart>
         <search>
-          <query>host=10.0.1.12 hardwaremonitor 
+          <query>host=192.168.232.12 hardwaremonitor 
 |  timechart span=1m values(Info2)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -101,7 +101,7 @@
       <title>Memory Usage % (Last 24 Hours)</title>
       <chart>
         <search>
-          <query>host=10.0.1.12 hardwaremonitor 
+          <query>host=192.168.232.12 hardwaremonitor 
 |  timechart span=1m values(Info3)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -121,7 +121,7 @@
       <title>Disk Space Utilization (Total vs. Free) (Last 24 Hours)</title>
       <chart>
         <search>
-          <query>host=10.0.1.12 hardwaremonitor | timechart span=1m values(Info5) values(Info4)</query>
+          <query>host=192.168.232.12 hardwaremonitor | timechart span=1m values(Info5) values(Info4)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -148,7 +148,7 @@
       <title>CPU Usage % (Current)</title>
       <single>
         <search>
-          <query>host=10.0.1.12 hardwaremonitor | stats first(Info2)</query>
+          <query>host=192.168.232.12 hardwaremonitor | stats first(Info2)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -167,7 +167,7 @@
       <title>Memory Usage % (Current)</title>
       <single>
         <search>
-          <query>host=10.0.1.12 hardwaremonitor | stats first(Info3)</query>
+          <query>host=192.168.232.12 hardwaremonitor | stats first(Info3)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -186,7 +186,7 @@
       <title>Disk Space Free (GB) (Current)</title>
       <single>
         <search>
-          <query>host=10.0.1.12 hardwaremonitor | stats first(Info5)</query>
+          <query>host=192.168.232.12 hardwaremonitor | stats first(Info5)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -211,47 +211,6 @@
   </row>
   <row>
     <panel>
-      <title>PVWA Synthetic Transaction Monitoring (Recent)</title>
-      <table>
-        <search>
-          <query>Product=SythenticTransactionMonitor 
-| rename Info1 as "URL"
-| rename Info2 as "HTTP Status"
-| rename Info3 as "Response Time"
-|  table Product, URL, "HTTP Status", "Response Time", _time
-| dedup "URL"</query>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
-        </search>
-        <option name="drilldown">none</option>
-        <format type="color" field="HTTP Status">
-          <colorPalette type="map">{"200":#53A051,"404":#DC4E41}</colorPalette>
-        </format>
-      </table>
-    </panel>
-  </row>
- <row>
-    <panel>
-      <title>PVWA Synthetic Transaction Monitoring Response Time (ms)</title>
-      <chart>
-        <search>
-          <query>Product=SythenticTransactionMonitor |  timechart span=1m values(Info3) by Info1</query>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
-          <refresh>30s</refresh>
-          <refreshType>delay</refreshType>
-        </search>
-        <option name="charting.axisTitleY.text">Response Time (ms)</option>
-        <option name="charting.chart">area</option>
-        <option name="charting.chart.nullValueMode">connect</option>
-        <option name="charting.drilldown">none</option>
-        <option name="charting.legend.placement">right</option>
-        <option name="refresh.display">progressbar</option>
-      </chart>
-    </panel>
-  </row>
-  <row>
-    <panel>
       <title>PVWA Logon Activity (Today)</title>
       <chart>
         <search>
@@ -267,7 +226,7 @@
         <option name="charting.axisTitleY.text">Concurrent PSM Sessions</option>
         <option name="charting.axisTitleY.visibility">visible</option>
         <option name="charting.axisTitleY2.visibility">visible</option>
-        <option name="charting.chart">area</option>
+        <option name="charting.chart">line</option>
         <option name="charting.chart.nullValueMode">connect</option>
         <option name="charting.drilldown">none</option>
         <option name="charting.legend.placement">none</option>

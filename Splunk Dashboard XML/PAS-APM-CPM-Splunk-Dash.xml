@@ -10,9 +10,9 @@
     <panel>
       <title>CyberArk Password Manager Service Status</title>
       <single>
-        <title>Host: Components</title>
+        <title>Host: </title>
         <search>
-          <query>host="10.0.1.12" Info2="CyberArk Password Manager" Info3=* 
+          <query>host="192.168.232.11" Info2="CyberArk Password Manager" Info3=* 
 |  stats first(Info4)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -30,9 +30,9 @@
     <panel>
       <title>CyberArk Central Policy Manager Scanner Service Status</title>
       <single>
-        <title>Host: Components</title>
+        <title>Host: </title>
         <search>
-          <query>host="10.0.1.12" Info2="CyberArk Central Policy Manager Scanner" Info3=* 
+          <query>host="192.168.232.11" Info2="CyberArk Central Policy Manager Scanner" Info3=* 
 |  stats first(Info4)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -52,7 +52,7 @@
     <panel>
       <single>
         <search>
-          <query>host="10.0.1.12" Info2="CyberArk Password Manager"
+          <query>host="192.168.232.11" Info2="CyberArk Password Manager"
 |  stats first(Info3)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -66,7 +66,7 @@
     <panel>
       <single>
         <search>
-          <query>host="10.0.1.12" Info2="CyberArk Central Policy Manager Scanner" Info3=*
+          <query>host="192.168.232.11" Info2="CyberArk Central Policy Manager Scanner" Info3=*
 |  stats first(Info3)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -88,7 +88,7 @@
       <title>CPU Usage % (Last 24 Hours)</title>
       <chart>
         <search>
-          <query>host=10.0.1.12 hardwaremonitor 
+          <query>host=192.168.232.11 hardwaremonitor 
 |  timechart span=1m values(Info2)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -136,7 +136,7 @@
       <title>Memory Usage % (Last 24 Hours)</title>
       <chart>
         <search>
-          <query>host=10.0.1.12 hardwaremonitor 
+          <query>host=192.168.232.11 hardwaremonitor 
 |  timechart span=1m values(Info3)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -156,7 +156,7 @@
       <title>Disk Space Utilization (Total vs. Free) (Last 24 Hours)</title>
       <chart>
         <search>
-          <query>host=10.0.1.12 hardwaremonitor | timechart span=1m values(Info5) values(Info4)</query>
+          <query>host=192.168.232.11 hardwaremonitor | timechart span=1m values(Info5) values(Info4)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -183,7 +183,7 @@
       <title>CPU Usage % (Current)</title>
       <single>
         <search>
-          <query>host=10.0.1.12 hardwaremonitor | stats first(Info2)</query>
+          <query>host=192.168.232.11 hardwaremonitor | stats first(Info2)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -202,7 +202,7 @@
       <title>Memory Usage % (Current)</title>
       <single>
         <search>
-          <query>host=10.0.1.12 hardwaremonitor | stats first(Info3)</query>
+          <query>host=192.168.232.11 hardwaremonitor | stats first(Info3)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -221,7 +221,7 @@
       <title>Disk Space Free (GB) (Current)</title>
       <single>
         <search>
-          <query>host=10.0.1.12 hardwaremonitor | stats first(Info5)</query>
+          <query>host=192.168.232.11 hardwaremonitor | stats first(Info5)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>

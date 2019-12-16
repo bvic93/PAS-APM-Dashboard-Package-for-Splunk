@@ -8,11 +8,11 @@
   </row>
   <row>
     <panel>
-      <title>PrivateArk Server Service Status</title>
+      <title>PrivateArk Server</title>
       <single>
         <title>Host: Vault</title>
         <search>
-          <query>host="10.0.1.10" Info2="PrivateArk Server" Info3=* 
+          <query>host="192.168.232.10" Info2="PrivateArk Server" Info3=* 
 |  stats first(Info4)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -28,11 +28,31 @@
       </single>
     </panel>
     <panel>
-      <title>PrivateArk Database Service Status</title>
+      <title>CyberArk Vault Disaster Recovery</title>
       <single>
         <title>Host: Vault</title>
         <search>
-          <query>host="10.0.1.10" Info2="PrivateArk Database" Info3=* 
+          <query>host="192.168.232.10" Info2="CyberArk Vault Disaster Recovery" Info3=* 
+|  stats first(Info4)</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <refresh>30s</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0xdc4e41","0x53a051"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+    <panel>
+      <title>PrivateArk Database</title>
+      <single>
+        <title>Host: Vault</title>
+        <search>
+          <query>host="192.168.232.10" Info2="PrivateArk Database" Info3=* 
 |  stats first(Info4)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -52,7 +72,7 @@
       <single>
         <title>Host: Vault</title>
         <search>
-          <query>host="10.0.1.10" Info2="CyberArk Logic Container" Info3=* 
+          <query>host="192.168.232.10" Info2="CyberArk Logic Container" Info3=* 
 |  stats first(Info4)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -72,7 +92,7 @@
       <single>
         <title>Host: Vault</title>
         <search>
-          <query>host="10.0.1.10" Info2="Cyber-Ark Event Notification Engine" Info3=* 
+          <query>host="192.168.232.10" Info2="Cyber-Ark Event Notification Engine" Info3=* 
 |  stats first(Info4)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -92,7 +112,7 @@
       <single>
         <title>Host: Vault</title>
         <search>
-          <query>host="10.0.1.10" Info2="PrivateArk Remote Control Agent" Info3=* 
+          <query>host="192.168.232.10" Info2="PrivateArk Remote Control Agent" Info3=* 
 |  stats first(Info4)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -112,7 +132,7 @@
     <panel>
       <single>
         <search>
-          <query>host="10.0.1.10" Info2="PrivateArk Server" Info3=* 
+          <query>host="192.168.232.10" Info2="PrivateArk Server" Info3=* 
 |  stats first(Info3)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -126,7 +146,7 @@
     <panel>
       <single>
         <search>
-          <query>host="10.0.1.10" Info2="PrivateArk Database" Info3=* 
+          <query>host="192.168.232.10" Info2="CyberArk Vault Disaster Recovery" Info3=* 
 |  stats first(Info3)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -140,7 +160,7 @@
     <panel>
       <single>
         <search>
-          <query>host="10.0.1.10" Info2="CyberArk Logic Container" Info3=* 
+          <query>host="192.168.232.10" Info2="PrivateArk Database" Info3=* 
 |  stats first(Info3)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -154,7 +174,7 @@
     <panel>
       <single>
         <search>
-          <query>host="10.0.1.10" Info2="Cyber-Ark Event Notification Engine" Info3=* 
+          <query>host="192.168.232.10" Info2="CyberArk Logic Container" Info3=* 
 |  stats first(Info3)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -168,7 +188,21 @@
     <panel>
       <single>
         <search>
-          <query>host="10.0.1.10" Info2="PrivateArk Remote Control Agent" Info3=*
+          <query>host="192.168.232.10" Info2="Cyber-Ark Event Notification Engine" Info3=* 
+|  stats first(Info3)</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <refresh>30s</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <search>
+          <query>host="192.168.232.10" Info2="PrivateArk Remote Control Agent" Info3=*
 |  stats first(Info3)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
@@ -190,7 +224,7 @@
       <title>CPU Usage % (Last 4 Hours)</title>
       <chart>
         <search>
-          <query>sourcetype=syslog Product=VaultMonitor| timechart span=1m values(Info8)</query>
+          <query>host="vault.seswho.com" sourcetype=syslog Product=VaultMonitor| timechart span=1m values(Info8)</query>
           <earliest>-4h@m</earliest>
           <latest>now</latest>
           <sampleRatio>1</sampleRatio>
@@ -237,7 +271,7 @@
       <title>Memory Usage % (Last 4 Hours)</title>
       <chart>
         <search>
-          <query>sourcetype=syslog Product=VaultMonitor| timechart span=1m values(Info9)</query>
+          <query>host="vault.seswho.com" sourcetype=syslog Product=VaultMonitor| timechart span=1m values(Info9)</query>
           <earliest>-4h@m</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -256,7 +290,7 @@
       <title>Disk Space Utilization (Total vs. Free) (Last 4 Hours)</title>
       <chart>
         <search>
-          <query>sourcetype=syslog Product=VaultMonitor| timechart span=1m values(Info10) values(Info11)</query>
+          <query>host="vault.seswho.com" sourcetype=syslog Product=VaultMonitor| timechart span=1m values(Info10) values(Info11)</query>
           <earliest>-4h@m</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -283,7 +317,7 @@
       <title>CPU Usage % (Current)</title>
       <single>
         <search>
-          <query>sourcetype=syslog Product=VaultMonitor | stats first(Info8)</query>
+          <query>host="vault.seswho.com" sourcetype=syslog Product=VaultMonitor | stats first(Info8)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -302,7 +336,7 @@
       <title>Memory Usage % (Current)</title>
       <single>
         <search>
-          <query>sourcetype=syslog Product=VaultMonitor | stats first(Info9)</query>
+          <query>host="vault.seswho.com" sourcetype=syslog Product=VaultMonitor | stats first(Info9)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -321,7 +355,7 @@
       <title>Disk Space Free (GB) (Current)</title>
       <single>
         <search>
-          <query>sourcetype=syslog Product=VaultMonitor | stats first(Info10)</query>
+          <query>host="vault.seswho.com" sourcetype=syslog Product=VaultMonitor | stats first(Info10)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -349,7 +383,7 @@
       <title>Average and Max Execution Time (Last 4 Hours)</title>
       <chart>
         <search>
-          <query>sourcetype=syslog Product=VaultMonitor| timechart span=1m values(Info1) values(Info2)</query>
+          <query>host="vault.seswho.com" sourcetype=syslog Product=VaultMonitor| timechart span=1m values(Info1) values(Info2)</query>
           <earliest>-4h@m</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -368,7 +402,7 @@
       <title>Average and Max Queue Time (Last 4 Hours)</title>
       <chart>
         <search>
-          <query>sourcetype=syslog Product=VaultMonitor| timechart span=1m values(Info3) values(Info4)</query>
+          <query>host="vault.seswho.com" sourcetype=syslog Product=VaultMonitor| timechart span=1m values(Info3) values(Info4)</query>
           <earliest>-4h@m</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -387,7 +421,7 @@
       <title>Current and Max Parallel Tasks (Last 4 Hours)</title>
       <chart>
         <search>
-          <query>sourcetype=syslog Product=VaultMonitor| timechart span=1m values(Info5) values(Info6)</query>
+          <query>host="vault.seswho.com" sourcetype=syslog Product=VaultMonitor| timechart span=1m values(Info5) values(Info6)</query>
           <earliest>-4h@m</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -407,7 +441,7 @@
       <title>Transaction Count (Last 4 Hours)</title>
       <chart>
         <search>
-          <query>sourcetype=syslog Product=VaultMonitor| timechart span=1m values(Info7)</query>
+          <query>host="vault.seswho.com" sourcetype=syslog Product=VaultMonitor| timechart span=1m values(Info7)</query>
           <earliest>-4h@m</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
