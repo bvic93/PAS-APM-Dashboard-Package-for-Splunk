@@ -12,8 +12,7 @@
       <single>
         <title>Host: PVWA</title>
         <search>
-          <query>host="192.168.232.12" Info2="W3SVC" Info3=* 
-|  stats first(Info4)</query>
+          <query>host="192.168.232.12" Info2="W3SVC" Info3=* | stats first(Info4)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -32,7 +31,7 @@
     <panel>
       <single>
         <search>
-          <query>host="192.168.232.12" Info2="W3SVC" |  stats first(Info3)</query>
+          <query>host="192.168.232.12" Info2="W3SVC" | stats first(Info3)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -53,8 +52,7 @@
       <title>CPU Usage % (Last 24 Hours)</title>
       <chart>
         <search>
-          <query>host=192.168.232.12 hardwaremonitor 
-|  timechart span=1m values(Info2)</query>
+          <query>host=192.168.232.12 hardwaremonitor | timechart span=1m values(Info2)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <sampleRatio>1</sampleRatio>
@@ -101,8 +99,7 @@
       <title>Memory Usage % (Last 24 Hours)</title>
       <chart>
         <search>
-          <query>host=192.168.232.12 hardwaremonitor 
-|  timechart span=1m values(Info3)</query>
+          <query>host=192.168.232.12 hardwaremonitor | timechart span=1m values(Info3)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
@@ -118,11 +115,11 @@
       </chart>
     </panel>
     <panel>
-      <title>Disk Space Utilization (Total vs. Free) (Last 24 Hours)</title>
+      <title>C: Drive Space Utilization (Total vs. Free) (Last 4 Hours)</title>
       <chart>
         <search>
-          <query>host=192.168.232.12 hardwaremonitor | timechart span=1m values(Info5) values(Info4)</query>
-          <earliest>-24h@h</earliest>
+          <query>host=192.168.232.12 hardwaremonitor Info6="C:" | timechart span=1m values(Info5) values(Info4)</query>
+          <earliest>-4h@m</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
           <refreshType>delay</refreshType>
@@ -142,67 +139,141 @@
         <option name="refresh.display">progressbar</option>
       </chart>
     </panel>
+<!--
+    <panel>
+      <title>E: Drive Space Utilization (Total vs. Free) (Last 4 Hours)</title>
+      <chart>
+        <search>
+          <query>host=192.168.232.12 hardwaremonitor Info6="E:" | timechart span=1m values(Info5) values(Info4)</query>
+          <earliest>-4h@m</earliest>
+          <latest>now</latest>
+          <refresh>30s</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.text">Time</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.text">Storage Space (GB)</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.chart">area</option>
+        <option name="charting.chart.nullValueMode">connect</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.legend.placement">none</option>
+        <option name="charting.seriesColors">[0x53A051,0x999999]</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+-->  
   </row>
   <row>
     <panel>
       <title>CPU Usage % (Current)</title>
-      <single>
+      <chart>
         <search>
-          <query>host=192.168.232.12 hardwaremonitor | stats first(Info2)</query>
-          <earliest>-24h@h</earliest>
+          <query>
+            host=192.168.232.12 hardwaremonitor | stats first(Info2)
+          </query>
+          <earliest>-24@h</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
           <refreshType>delay</refreshType>
         </search>
-        <option name="colorMode">block</option>
-        <option name="drilldown">none</option>
-        <option name="rangeColors">["0x53a051","0xf8be34","0xf1813f","0x006d9c","0xdc4e41"]</option>
-        <option name="rangeValues">[50,70,85,170]</option>
+        <option name="charting.chart">radialGauge</option>
+        <option name="charting.chart.rangeValues">[0,50,70,85,100]</option>
+        <option name="charting.chart.showMinorTicks">true</option>
         <option name="refresh.display">progressbar</option>
-        <option name="unit">%</option>
-        <option name="useColors">1</option>
-      </single>
+      </chart>
     </panel>
     <panel>
       <title>Memory Usage % (Current)</title>
-      <single>
+      <chart>
         <search>
-          <query>host=192.168.232.12 hardwaremonitor | stats first(Info3)</query>
+          <query>host=192.168.232.12 hardwaremonitor | stats first(Info3)
+          </query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
           <refreshType>delay</refreshType>
         </search>
-        <option name="colorMode">block</option>
-        <option name="drilldown">none</option>
-        <option name="rangeColors">["0x53a051","0xf8be34","0xf1813f","0xdc4e41"]</option>
-        <option name="rangeValues">[50,70,85]</option>
+        <option name="charting.chart">radialGauge</option>
+        <option name="charting.chart.rangeValues">[0,50,70,85,100]</option>
+        <option name="charting.chart.showMinorTicks">true</option>
         <option name="refresh.display">progressbar</option>
-        <option name="unit">%</option>
-        <option name="useColors">1</option>
-      </single>
+      </chart>
     </panel>
     <panel>
-      <title>Disk Space Free (GB) (Current)</title>
-      <single>
+      <title>C: Drive Space Free (GB) (Current)</title>
+      <chart>
         <search>
-          <query>host=192.168.232.12 hardwaremonitor | stats first(Info5)</query>
-          <earliest>-24h@h</earliest>
+          <!-- info4 = disk capacity, info5 = freespace -->
+          <query>host=192.168.232.12 hardwaremonitor Info6="C:"
+            | stats max(Info5) as freespace, last(Info4) as total
+            | eval greenLimit=round(total*.20,0)
+            | eval yellowLimit=round(total*.10,0)
+            | table freespace total greenLimit yellowLimit
+          </query>
+          <earliest>-4h@m</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>
           <refreshType>delay</refreshType>
+          <done>
+            <condition match="$job.resultInfo10$==0">
+              <set token="greenLimit">0</set>
+              <set token="yellowLimit">0</set>
+              <set token="total">0</set>
+            </condition>
+            <condition>
+              <set token="greenLimit">$result.greenLimit$</set>
+              <set token="yellowLimit">$result.yellowLimit$</set>
+              <set token="total">$result.total$</set>
+            </condition>
+          </done>
         </search>
-        <option name="colorMode">block</option>
-        <option name="drilldown">none</option>
-        <option name="height">114</option>
-        <option name="numberPrecision">0.0</option>
-        <option name="rangeColors">["0xdc4e41","0xf8be34","0x53a051"]</option>
-        <option name="rangeValues">[10,20]</option>
+        <option name="charting.chart">radialGauge</option>
+        <option name="charting.chart.rangeValues">[0,$yellowLimit$,$greenLimit$,$total$]</option>
+        <!-- 84E900 = Green, FFE800 = Yellow, BF3030 = Red -->
+        <option name="charting.gaugeColors">["0xBF3030","0xFFE800","0x84E900"]</option>
+        <option name="charting.chart.showMinorTicks">true</option>
         <option name="refresh.display">progressbar</option>
-        <option name="unit">GB</option>
-        <option name="useColors">1</option>
-      </single>
+      </chart>
     </panel>
+<!--
+    <panel>
+      <title>E: Drive Space Free (GB) (Current)</title>E: Drive Space Free (GB) (Current)<chart>
+        <search>
+          <query>host=192.168.232.12 hardwaremonitor Info6="E:"
+          | stats max(Info4) as total, max(Info5) as freespace
+          | eval greenLimit=round(total*.20,0)
+          | eval yellowLimit=round(total*.10,0)
+          | table freespace total greenLimit yellowLimit
+          </query>
+          <earliest>-4h@m</earliest>
+          <latest>now</latest>
+          <refresh>30s</refresh>
+          <refreshType>delay</refreshType>
+          <done>
+            <condition match="$job.resultInfo10$==0">
+              <set token="greenLimit">0</set>
+              <set token="yellowLimit">0</set>
+              <set token="total">0</set>
+            </condition>
+            <condition>
+              <set token="greenLimit">$result.greenLimit$</set>
+              <set token="yellowLimit">$result.yellowLimit$</set>
+              <set token="total">$result.total$</set>
+            </condition>
+          </done>
+        </search>
+        <option name="charting.chart">radialGauge</option>
+        <option name="charting.chart.rangeValues">[0,$yellowLimit$,$greenLimit$,$total$]</option>
+        <option name="charting.gaugeColors">["0xBF3030","0xFFE800","0x84E900"]</option>
+        <option name="charting.chart.showMinorTicks">true</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+-->
   </row>
   <row>
     <panel>
@@ -214,8 +285,7 @@
       <title>PVWA Logon Activity (Today)</title>
       <chart>
         <search>
-          <query>act="Logon" 
-|  timechart span=5m count</query>
+          <query>act="Logon" | timechart span=5m count</query>
           <earliest>@d</earliest>
           <latest>now</latest>
           <refresh>30s</refresh>

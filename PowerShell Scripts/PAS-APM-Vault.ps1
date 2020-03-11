@@ -46,7 +46,7 @@ $Date_Time = $DATE.ToString("yyyy-MM-ddTHH:mm:ssZ")
 # syslog/SIEM server info
 $PORT = 51444
 # chage SYSLOGSERVER to the IP Address of your SIEM
-$SYSLOGSERVER="1.1.1.1"
+$SYSLOGSERVER="192.168.232.4"
 
 # Service array for the vault servers, add services as required
 $svcArray = @("CyberArk Vault Disaster Recovery", "PrivateArk Server", "PrivateArk Database", "CyberArk Logic Container", "PrivateArk Remote Control Agent", "Cyber-Ark Event Notification Engine")
@@ -62,5 +62,18 @@ $OSName = (Get-WmiObject Win32_OperatingSystem).Caption | Out-String
 $OSVersion = (Get-WmiObject Win32_OperatingSystem).Version | Out-String
 $OSServPack = (Get-WmiObject Win32_OperatingSystem).ServicePackMajorVersion | Out-String
 $OSArchitecture = (Get-WmiObject Win32_OperatingSystem).OSArchitecture | Out-String
-$syslogoutput = "<5>1 $DateTime $compName CEF:0|CyberArk|$MonitorType|$ver|$compName|$OSName|$OSVersion|$OSServPack|$OSArchitecture"
+$syslogoutput = "<5>1 $Date_Time $compName CEF:0|CyberArk|$MonitorType|$ver|$compName|$OSName|$OSVersion|$OSServPack|$OSArchitecture"
 Send_Syslog -syslogMsg $syslogoutput -syslogSrv $SYSLOGSERVER -syslogPort $PORT
+
+#
+# check to see if there are other drives attached to this computer and generate syslog messages about it's capaity and freespace
+#foreach ($disk in $(Get-WmiObject  -Class Win32_LogicalDisk -Filter "DriveType = 3 And DeviceID <> 'C:'" | Select-Object -Property DeviceID,
+foreach ($disk in $(Get-WmiObject  -Class Win32_LogicalDisk -Filter "DriveType = 3" | Select-Object -Property DeviceID,
+    @{L='FreeSpaceGB';E={{"{0:N0}"} -f ($_.FreeSpace/1GB)}},  @{L='CapacityGB';E={{"{0:N0}"} -f ($_.Size/1GB)}}))
+{
+    $FS = $disk.FreeSpaceGB.REplace('"','')
+    $SZ = $disk.CapacityGB.REplace('"','')
+    $DRV = $disk.DeviceID
+    $syslogoutput = "<5>1 $Date_Time $compName CEF:0|CyberArk|$MonitorType|$ver|0|0|0|0|0|0|0|0|0|$FS|$SZ|$DRV"
+    Send_Syslog -syslogMsg $syslogoutput -syslogSrv $SYSLOGSERVER -syslogPort $PORT
+}
